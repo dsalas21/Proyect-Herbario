@@ -1,0 +1,54 @@
+.plant-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f8ff;
+    min-height: 100vh;
+  }
+  
+  .plant-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .plant-details {
+    max-width: 800px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .plant-details h2 {
+    background-color: #81c784;
+    color: rgba(255, 255, 255, 0.65);
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 15px 15px 0 0;
+    margin: -20px -20px 20px -20px;
+  }
+  
+  .plant-details p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.5;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

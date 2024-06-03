@@ -7,12 +7,12 @@ const Login = () => {
     const loginBtnRef = useRef(null);
 
     useEffect(() => {
-        // Asegurarse de que las referencias están asignadas
+       
         const container = containerRef.current;
         const registerBtn = registerBtnRef.current;
         const loginBtn = loginBtnRef.current;
 
-        // Agregar eventos a los botones
+        
         if (registerBtn && loginBtn && container) {
             registerBtn.addEventListener('click', () => {
                 container.classList.add('active');
@@ -22,7 +22,7 @@ const Login = () => {
                 container.classList.remove('active');
             });
 
-            // Limpieza de event listeners cuando el componente se desmonta
+            
             return () => {
                 registerBtn.removeEventListener('click', () => {
                     container.classList.add('active');
@@ -33,7 +33,7 @@ const Login = () => {
                 });
             };
         }
-    }, []); // Lista de dependencias vacía para que se ejecute solo al montar el componente.
+    }, []); 
 
     return (
         <div className="container" ref={containerRef}>
