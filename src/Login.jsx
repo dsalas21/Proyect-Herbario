@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import './style.css'; 
+import './style.css';
 
 const Login = () => {
     const containerRef = useRef(null);
@@ -7,12 +7,10 @@ const Login = () => {
     const loginBtnRef = useRef(null);
 
     useEffect(() => {
-       
         const container = containerRef.current;
         const registerBtn = registerBtnRef.current;
         const loginBtn = loginBtnRef.current;
 
-        
         if (registerBtn && loginBtn && container) {
             registerBtn.addEventListener('click', () => {
                 container.classList.add('active');
@@ -22,7 +20,6 @@ const Login = () => {
                 container.classList.remove('active');
             });
 
-            
             return () => {
                 registerBtn.removeEventListener('click', () => {
                     container.classList.add('active');
@@ -33,18 +30,39 @@ const Login = () => {
                 });
             };
         }
-    }, []); 
+    }, []);
+
+    const handleRegister = async (event) => {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        const response = await fetch('http://localhost:3000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password }),
+        });
+
+        if (response.ok) {
+            alert('Usuario registrado exitosamente');
+        } else {
+            alert('Error al registrar el usuariolll');
+        }
+    };
 
     return (
         <div className="container" ref={containerRef}>
             <div className="form-container sign-up">
-                <form>
+                <form onSubmit={handleRegister}>
                     <h1>Crear Cuenta</h1>
                     <span>Usa tu E-mail para registrarte</span>
-                    <input type="text" placeholder="Nombre" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Contraseña" />
-                    <button>Registrar</button>
+                    <input type="text" placeholder="Nombre" name="name" />
+                    <input type="email" placeholder="Email" name="email" />
+                    <input type="password" placeholder="Contraseña" name="password" />
+                    <button type="submit">Registrar</button>
                 </form>
             </div>
             <div className="form-container sign-in">
@@ -53,7 +71,6 @@ const Login = () => {
                     <span>Usa tu correo para iniciar sesión</span>
                     <input type="email" placeholder="Email" />
                     <input type="password" placeholder="Password" />
-                    <a href="#">¿Olvidaste tu contraseña?</a>
                     <button>Iniciar sesión</button>
                 </form>
             </div>
