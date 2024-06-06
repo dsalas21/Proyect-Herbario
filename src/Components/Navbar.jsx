@@ -56,10 +56,10 @@ const NavBar = () => {
                   </a>
                   <ul className="dropdown-menu dropdown-menu-dark">
                     <li>
-                      <Link className="dropdown-item" to="FormularioPlantas">Registrar nueva planta</Link>
+                      <Link className="dropdown-item" to="/FormularioPlantas">Registrar nueva planta</Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">Editar Planta</a>
+                      <Link className="dropdown-item" to="/FormularioR">Registrar Recolector</Link>
                     </li>
                   </ul>
                 </li>

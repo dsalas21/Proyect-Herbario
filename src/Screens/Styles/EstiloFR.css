@@ -1,16 +1,4 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-}
-
-.fp-container {
+.fp-container-fp-DatosR {
     max-width: 800px;
     width: 100%;
     background-color: #ffffff;
@@ -20,7 +8,7 @@ body {
     animation: fadeIn 1s ease-in-out;
     margin: 40px 0;
     padding: 20px;
-    padding-top: 26cm;
+    padding-top: 0cm;
 }
 
 .fp-title {
@@ -63,29 +51,8 @@ body {
     background-color: #66bb6a;
 }
 
-.fp-btn-secondary {
-    background-color: #66bb6a;
-    border: none;
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-size: 0.9em;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-}
-
-.fp-btn-secondary:hover {
-    background-color: #388e3c;
-}
-
 textarea,
 input[type="date"],
-select,
 .btn-group {
     width: calc(100% - 40px);
     padding: 10px;
@@ -98,7 +65,6 @@ select,
 
 textarea:focus,
 input[type="date"]:focus,
-select:focus,
 .btn-group:focus {
     border-color: #81c784;
     box-shadow: 0 0 5px rgba(129, 199, 132, 0.8);

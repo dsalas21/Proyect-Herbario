@@ -34,6 +34,43 @@ app.post("/create",(req,res)=>{
 );
 });
 
+app.post("/regR",(req,res)=>{
+  const name=req.body.name;
+  const state=req.body.state;
+  const country=req.body.country;
+  const city=req.body.city;
+  
+  
+  connection.query ( 'INSERT INTO Recolectores (name, state, country,city) VALUES (?, ?, ?,?)',[name, state, country,city],
+  (err,result)=>{
+   
+      if (err) {
+        console.log('Error al insertar datos:', err);
+      }else{res.send('Recolector registrado exitosamente');}
+      
+
+  }
+
+);
+});
+
+
+
+app.get("/Recolectores",(req,res)=>{
+  
+  connection.query ( 'SELECT * FROM Recolectores ',
+  (err,result)=>{
+   
+      if (err) {
+        console.log(Err);
+      }else{
+        res.send(result);
+      }
+
+}
+);
+});
+
 
 
 connection.connect((err) => {

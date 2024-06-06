@@ -5,14 +5,15 @@ import FormularioPlantas from './Screens/FormularioPlantas';
 import Home from './Screens/Home';
 import Plant from './Screens/Plant'; 
 import Explorer from './Screens/Explorer';
-import Login from './Login'
+import FormularioR from './Screens/FormularioR';
+//import Login from './Login'
 import { BrowserRouter as Router,Routes,Route  } from 'react-router-dom';
 function App() {
   return (
 
-    <Login/>
+   // <Login/>
       
-    /*
+    
     <Router>
       <Navbar/>
       <Routes>
@@ -20,13 +21,14 @@ function App() {
       <Route path='/Explorer' element={<Explorer />} />
       <Route path='/FormularioPlantas' element={<FormularioPlantas />} />
       <Route path='/Plant' element={<Plant />} />  
+      <Route path='/FormularioR' element={<FormularioR />} />
       </Routes>
 
 
 
     </Router>
 
-    */
+    
 
        
     

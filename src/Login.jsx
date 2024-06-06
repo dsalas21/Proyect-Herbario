@@ -22,6 +22,7 @@ const Login = () => {
       console.error("Hubo un error al registrar el usuario:", error);
     });
   }
+  
 
   useEffect(() => {
     const container = containerRef.current;
