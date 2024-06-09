@@ -41,7 +41,7 @@ const FormularioPlantas = () => {
 
     }).then(() => {
       alert("Planta Registrado");
-      
+      window.location.reload();
     }).catch((error) => {
       alert("Hubo un error al registrar el recolector:", error);
     });

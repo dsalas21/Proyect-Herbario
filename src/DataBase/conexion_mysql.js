@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port=3001;
 const cors= require('cors');
-
+const bcrypt = require('bcrypt');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -15,24 +15,72 @@ const connection = mysql.createConnection({
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
-app.post("/create",(req,res)=>{
-  const name=req.body.name;
-  const password=req.body.password;
-  const email=req.body.email;
-  
-  
-  connection.query ( 'INSERT INTO Usuarios (name, email, password) VALUES (?, ?, ?)',[name, email, password],
-  (err,result)=>{
-   
-      if (err) {
-        console.log('Error al insertar datos:', err);
-      }else{res.send('Usuario registrado exitosamente');}
-      
+app.post('/create', (req, res) => {
+  const { name, email, password } = req.body;
 
-  }
+  // funcion para encriptar contraseña
+  bcrypt.hash(password, 10, (err, hash) => {
+    if (err) {
+      res.status(500).send('Error al hashear la contraseña');
+      return;
+    }
 
-);
+    connection.query(
+      'INSERT INTO Usuarios (name, email, password) VALUES (?, ?, ?)',
+      [name, email, hash],
+    
+      (err, result) => {
+        if (err) {
+          res.status(500).send('Error al registrar el usuario');
+          return;
+        }
+
+        res.send('Usuario registrado exitosamente');
+      }
+    );
+  });
 });
+
+app.post('/Login', (req, res) => {
+  const { email, password } = req.body;
+
+  // busqueda del email
+  connection.query('SELECT * FROM Usuarios WHERE email = ?', [email], (err, results) => {
+    if (err) {
+      res.status(500).send('Error al buscar usuario');
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(401).send('Usuario no encontrado');
+      return;
+    }
+
+    const user = results[0];
+
+    // comparacion de contra encrip
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) {
+        res.status(500).send('Error al comparar contraseñas');
+        return;
+      }
+
+      if (!isMatch) {
+        res.status(401).send('Contraseña incorrecta');
+        return;
+      }
+
+      res.send('Inicio de sesión exitoso');
+    });
+  });
+});
+
+
+
+
+
+
+
 
 app.post("/regR",(req,res)=>{
   const name=req.body.name;
@@ -101,6 +149,21 @@ app.get("/Recolectores",(req,res)=>{
 app.get("/Plantas",(req,res)=>{
   
   connection.query ( 'SELECT * FROM Plantas ',
+  (err,result)=>{
+   
+      if (err) {
+        console.log(Err);
+      }else{
+        res.send(result);
+      }
+
+}
+);
+});
+
+app.get("/Usuarios",(req,res)=>{
+  
+  connection.query ( 'SELECT * FROM usuarios ',
   (err,result)=>{
    
       if (err) {

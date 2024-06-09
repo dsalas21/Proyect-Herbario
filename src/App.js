@@ -6,7 +6,7 @@ import Home from './Screens/Home';
 import Plant from './Screens/Plant'; 
 import Explorer from './Screens/Explorer';
 import FormularioR from './Screens/FormularioR';
-//import Login from './Login'
+import Login from './Login'
 import { BrowserRouter as Router,Routes,Route  } from 'react-router-dom';
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
 
 
     </Router>
-
+    
     
 
        

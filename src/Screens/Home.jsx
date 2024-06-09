@@ -4,6 +4,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Link} from "react-router-dom";
  const Home = () => {
   return (
+
+    
 <div className="card" style={{ width: '18rem' }}>
       <img src="..." className="card-img-top" alt="..." />
       <div className="card-body">

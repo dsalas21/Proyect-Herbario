@@ -10,6 +10,8 @@ const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const add = () => {
     axios.post("http://localhost:3001/create", {
@@ -18,11 +20,27 @@ const Login = () => {
       password: password
     }).then(() => {
       alert("Usuario Registrado");
+      window.location.reload();
     }).catch((error) => {
       console.error("Hubo un error al registrar el usuario:", error);
     });
   }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:3001/Login', {
+      email: loginEmail,
+      password: loginPassword
+    })
+    .then(response => {
+      alert('Inicio de sesión exitoso');
+    })
+    .catch(error => {
+      alert('Error al iniciar sesión:', error);
+    });
+  };
   
+
 
   useEffect(() => {
     const container = containerRef.current;
@@ -74,12 +92,24 @@ const Login = () => {
         </form>
       </div>
       <div className="form-container sign-in">
-        <form>
+      <form onSubmit={handleSubmit} >
           <h1>Iniciar sesión</h1>
           <span>Usa tu correo para iniciar sesión</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Iniciar sesión</button>
+          <input 
+          type="email" 
+          placeholder="Email" 
+          value={loginEmail}
+          onChange={(event) => setLoginEmail(event.target.value)}       
+          />
+          
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={loginPassword}
+            onChange={(event) => setLoginPassword(event.target.value)}
+            />
+          <button type="submit">Iniciar sesión</button>
         </form>
       </div>
       <div className="toggle-container">
