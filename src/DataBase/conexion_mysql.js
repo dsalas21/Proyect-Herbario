@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 });
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 app.post("/create",(req,res)=>{
   const name=req.body.name;
@@ -54,6 +54,33 @@ app.post("/regR",(req,res)=>{
 );
 });
 
+app.post("/regP",(req,res)=>{
+  const scientific_name =req.body.scientific_name;
+  const common_name=req.body.common_name;
+  const family=req.body.family;
+  const genus=req.body.genus;
+  const species=req.body.species;
+  const description=req.body.description;
+  const habitat=req.body.habitat;
+  const location=req.body.location;
+  const image=req.body.image;
+  const collection_date=req.body.collection_date;
+  const recolector_id=req.body.recolector_id;
+  
+  
+  connection.query ( 'INSERT INTO Plantas (scientific_name, common_name, family,genus,species,description,habitat,location,image,collection_date,recolector_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+    [scientific_name, common_name, family,genus,species,description,habitat,location,image,collection_date,recolector_id],
+  (err,result)=>{
+   
+      if (err) {
+        console.log('Error al insertar datos:', err);
+      }else{res.send('Planta registrado exitosamente');}
+      
+
+  }
+
+);
+});
 
 
 app.get("/Recolectores",(req,res)=>{
@@ -71,6 +98,20 @@ app.get("/Recolectores",(req,res)=>{
 );
 });
 
+app.get("/Plantas",(req,res)=>{
+  
+  connection.query ( 'SELECT * FROM Plantas ',
+  (err,result)=>{
+   
+      if (err) {
+        console.log(Err);
+      }else{
+        res.send(result);
+      }
+
+}
+);
+});
 
 
 connection.connect((err) => {

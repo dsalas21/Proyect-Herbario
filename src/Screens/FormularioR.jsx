@@ -3,13 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Styles/EstiloFR.css';
 import axios from 'axios';
-
+import {Link} from "react-router-dom";
 function FormularioR() {
     const [name, setName] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
     const [city, setCity] = useState("");
-
+    
 
     const add = () => {
         axios.post("http://localhost:3001/regR", {
@@ -19,8 +19,9 @@ function FormularioR() {
           city: city
         }).then(() => {
           alert("Recolector Registrado");
+          
         }).catch((error) => {
-          console.error("Hubo un error al registrar el recolector:", error);
+          alert("Hubo un error al registrar el recolector:", error);
         });
       }
 
@@ -104,7 +105,7 @@ function FormularioR() {
             </div>
             </div>
             
-            <button type="submit" className="fp-btn-primary">
+            <button  type="submit" className="fp-btn-primary">
             Registrar
             </button>
           </form>
