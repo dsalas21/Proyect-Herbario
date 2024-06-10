@@ -3,9 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Styles/StyleN.css';
 import {Link} from "react-router-dom";
+import { useAuth } from '../AuthContext';
+
+
 
 
 const NavBar = () => {
+  const { logout } = useAuth();
+
   return (
     <header>
       <nav className="navbar navbar-dark bg-dark fixed-top">
@@ -41,9 +46,6 @@ const NavBar = () => {
                 <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/Home">Inicio</Link>
                 </li>
-                <li className="nav-item">
-                <Link className="nav-link" to="/Explorer">Busqueda</Link>
-                </li>
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
@@ -63,6 +65,10 @@ const NavBar = () => {
                     </li>
                   </ul>
                 </li>
+                <li className="nav-item">
+                <Link onClick={logout}  className="nav-link active" aria-current="page" to="/Login">Cerrar sesion</Link>
+                </li>
+
               </ul>
             </div>
           </div>

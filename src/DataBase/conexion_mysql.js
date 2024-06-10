@@ -15,6 +15,7 @@ const connection = mysql.createConnection({
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
+//Registrar usuarios
 app.post('/create', (req, res) => {
   const { name, email, password } = req.body;
 
@@ -41,6 +42,8 @@ app.post('/create', (req, res) => {
   });
 });
 
+//Inicio de sesion
+
 app.post('/Login', (req, res) => {
   const { email, password } = req.body;
 
@@ -58,7 +61,7 @@ app.post('/Login', (req, res) => {
 
     const user = results[0];
 
-    // comparacion de contra encrip
+    // comparacion de contra encriptada
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) {
         res.status(500).send('Error al comparar contraseñas');
@@ -79,7 +82,7 @@ app.post('/Login', (req, res) => {
 
 
 
-
+//Registrar Recolectores
 
 
 app.post("/regR",(req,res)=>{
@@ -101,6 +104,8 @@ app.post("/regR",(req,res)=>{
 
 );
 });
+
+//registrar Planta
 
 app.post("/regP",(req,res)=>{
   const scientific_name =req.body.scientific_name;
@@ -124,11 +129,42 @@ app.post("/regP",(req,res)=>{
         console.log('Error al insertar datos:', err);
       }else{res.send('Planta registrado exitosamente');}
       
-
   }
-
 );
 });
+
+//Actualizar planta
+app.post("/PlantasUp/:id", (req, res) => {
+  const { id } = req.params;
+  const {
+    scientific_name,
+    common_name,
+    family,
+    genus,
+    species,
+    description,
+    habitat,
+    location,
+    image,
+    collection_date,
+    recolector_id
+  } = req.body;
+
+  const query = `UPDATE Plantas SET scientific_name = ?,common_name = ?,family = ?, genus = ?,species = ?, description = ?,habitat = ?,
+    location = ?, image = ?,collection_date = ?,recolector_id = ? WHERE id = ? `;
+
+  connection.query(query, [scientific_name,common_name,family,genus,species,description, habitat,location, image,collection_date, recolector_id, id
+  ], (err, result) => {
+    if (err) {
+      console.log('Error al actualizar datos:', err);
+      res.status(500).send('Error al actualizar la planta');
+    } else {
+      res.send('Planta actualizada exitosamente');
+    }
+  });
+});
+
+//Consultar Recolectores
 
 
 app.get("/Recolectores",(req,res)=>{
@@ -146,6 +182,8 @@ app.get("/Recolectores",(req,res)=>{
 );
 });
 
+//Consultar Plantas
+
 app.get("/Plantas",(req,res)=>{
   
   connection.query ( 'SELECT * FROM Plantas ',
@@ -160,7 +198,46 @@ app.get("/Plantas",(req,res)=>{
 }
 );
 });
+//Consultar plantas con id
+app.get("/Plantas/:id", (req, res) => {
+  const { id } = req.params; // Obtienes el ID de la ruta
 
+  connection.query('SELECT * FROM Plantas WHERE id = ?', [id], (err, result) => {
+    if (err) {
+      console.log('Error:', err);
+      res.status(500).send('Error al obtener la planta');
+    } else {
+      
+      if (result.length > 0) {
+        res.send(result[0]); 
+      } else {
+        res.status(404).send('Planta no encontrada'); 
+      }
+    }
+  });
+});
+
+//borrar plantas
+
+app.delete("/borrarPlanta/:id", (req, res) => {
+  const { id } = req.params; 
+
+  connection.query('DELETE FROM Plantas WHERE id = ?', [id], (err, result) => {
+    if (err) {
+      console.log('Error al borrar la planta:', err);
+      res.status(500).send('Error al borrar la planta');
+    } else {
+      if (result.affectedRows > 0) {
+        res.send('Planta borrada exitosamente');
+      } else {
+        res.status(404).send('Planta no encontrada');
+      }
+    }
+  });
+});
+
+
+//consultar usuarios
 app.get("/Usuarios",(req,res)=>{
   
   connection.query ( 'SELECT * FROM usuarios ',

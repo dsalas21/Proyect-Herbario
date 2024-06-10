@@ -1,23 +1,57 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import {Link} from "react-router-dom";
- const Home = () => {
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from "react-router-dom";
+import './Styles/EstiloCard.css';
+
+const Home = () => {
+  const [plantas, setPlantas] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/Plantas")
+      .then((response) => {
+        setPlantas(response.data);
+      })
+      .catch((error) => {
+        console.log('Error al obtener datos:', error);
+      });
+  }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredPlantas = plantas.filter(planta =>
+    planta.common_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-
-    
-<div className="card" style={{ width: '18rem' }}>
-      <img src="..." className="card-img-top" alt="..." />
-      <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </p>
-        <Link to="/Plant" className="btn btn-primary">Ver</Link>
+    <>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Buscar planta..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        <button onClick={() => setSearchTerm('')}>Limpiar</button>
       </div>
-    </div>
-    
-  )
+      <div className="card-container">
+        {filteredPlantas.map((planta) => (
+          <div className="card" key={planta.id}>
+            <img src={planta.image} className="card-img-top" alt={planta.common_name} />
+            <div className="card-body">
+              <h5 className="card-title">{planta.common_name}</h5>
+              <p className="card-text">
+                {planta.description}
+              </p>
+              <Link to={`/Plant/${planta.id}`} className="btn btn-primary">Ver</Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
 }
-export default Home;
 
+export default Home;

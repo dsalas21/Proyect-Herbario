@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Styles/EstiloFP.css';
 import axios from 'axios';
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 const FormularioPlantas = () => {
+  const navigate = useNavigate();
   const [scientific_name, setScientific_name] = useState("");
   const [common_name, setCommon_name] = useState("");
   const [family, setFamily] = useState("");
@@ -40,8 +41,8 @@ const FormularioPlantas = () => {
       recolector_id:recolector_id
 
     }).then(() => {
-      alert("Planta Registrado");
-      window.location.reload();
+      alert("Planta Registrada");
+      navigate('/Home'); 
     }).catch((error) => {
       alert("Hubo un error al registrar el recolector:", error);
     });

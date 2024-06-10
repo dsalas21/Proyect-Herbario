@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import './style.css';
-
+import { useAuth } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const containerRef = useRef(null);
   const registerBtnRef = useRef(null);
   const loginBtnRef = useRef(null);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +35,9 @@ const Login = () => {
       password: loginPassword
     })
     .then(response => {
-      alert('Inicio de sesión exitoso');
+    //  alert('Inicio de sesión exitoso');
+      login();
+      navigate('/Home');
     })
     .catch(error => {
       alert('Error al iniciar sesión:', error);

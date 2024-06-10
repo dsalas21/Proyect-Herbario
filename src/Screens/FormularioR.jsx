@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Styles/EstiloFR.css';
 import axios from 'axios';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 function FormularioR() {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
@@ -19,7 +20,7 @@ function FormularioR() {
           city: city
         }).then(() => {
           alert("Recolector Registrado");
-          
+          navigate('/Home'); 
         }).catch((error) => {
           alert("Hubo un error al registrar el recolector:", error);
         });
