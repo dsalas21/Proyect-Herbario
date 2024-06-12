@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import './Styles/EstiloCard.css';
-
+import './Styles/EstiloHome.css';
 const Home = () => {
   const [plantas, setPlantas] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,6 +36,7 @@ const Home = () => {
         />
         <button onClick={() => setSearchTerm('')}>Limpiar</button>
       </div>
+    <div className="Contendedor">
       <div className="card-container">
         {filteredPlantas.map((planta) => (
           <div className="card" key={planta.id}>
@@ -49,6 +50,7 @@ const Home = () => {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </>
   );

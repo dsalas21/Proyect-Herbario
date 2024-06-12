@@ -25,12 +25,12 @@ const FormularioPlantas = () => {
   const [error, setError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const URL = 'http://localhost:3001/Recolectores';
+  const URL = 'http://localhost:46785/Recolectores';
 
   // Obtener datos de la planta
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:3001/Plantas/${id}`)
+      axios.get(`http://localhost:46785/Plantas/${id}`)
         .then((response) => {
           const plant = response.data;
           setScientific_name(plant.scientific_name);
@@ -54,7 +54,7 @@ const FormularioPlantas = () => {
 
   // Actualizar planta
   const add = () => {
-    axios.post(`http://localhost:3001/PlantasUp/${id}`, {
+    axios.post(`http://localhost:46785/PlantasUp/${id}`, {
       scientific_name: scientific_name,
       common_name: common_name,
       family: family,

@@ -198,6 +198,29 @@ app.get("/Plantas",(req,res)=>{
 }
 );
 });
+
+
+app.get("/Recolectores/:id", (req, res) => {
+  const { id } = req.params; // Obtienes el ID de la ruta
+
+  connection.query('SELECT * FROM Recolectores WHERE id = ?', [id], (err, result) => {
+    if (err) {
+      console.log('Error:', err);
+      res.status(500).send('Error al obtener la Recolector');
+    } else {
+      
+      if (result.length > 0) {
+        res.send(result[0]); 
+      } else {
+        res.status(404).send('Recolector no encontrada'); 
+      }
+    }
+  });
+});
+
+
+
+
 //Consultar plantas con id
 app.get("/Plantas/:id", (req, res) => {
   const { id } = req.params; // Obtienes el ID de la ruta

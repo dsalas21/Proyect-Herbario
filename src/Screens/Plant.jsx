@@ -7,7 +7,7 @@ function Plant() {
   const [plant, setPlant] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const [collector, setCollector] = useState(null);
   useEffect(() => {
     axios.get(`http://localhost:3001/Plantas/${id}`)
       .then((response) => {
@@ -35,6 +35,9 @@ function Plant() {
     } 
   };
 
+
+
+
   if (!plant) {
     return <div>Cargando...</div>;
   }
@@ -50,6 +53,7 @@ function Plant() {
         <p><strong>Descripción:</strong> {plant.description}</p>
         <p><strong>Hábitat:</strong> {plant.habitat}</p>
         <p><strong>Ubicación:</strong> {plant.location}</p>
+        
         <img src={plant.image} className="plant-img" alt={plant.common_name} />
       <div className="plant-actions">
         <button onClick={handleEdit} className="edit-btn">Editar</button>
