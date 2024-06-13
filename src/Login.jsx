@@ -16,7 +16,7 @@ const Login = () => {
   const [loginPassword, setLoginPassword] = useState("");
 
   const add = () => {
-    axios.post("http://localhost:3001/create", {
+    axios.post("https://prueba3-production.up.railway.app/create", {
       name: name,
       email: email,
       password: password
@@ -30,7 +30,7 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3001/Login', {
+    axios.post('https://prueba3-production.up.railway.app/Login', {
       email: loginEmail,
       password: loginPassword
     })

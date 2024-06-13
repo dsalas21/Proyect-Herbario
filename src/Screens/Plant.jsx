@@ -9,7 +9,7 @@ function Plant() {
   const navigate = useNavigate();
   const [collector, setCollector] = useState(null);
   useEffect(() => {
-    axios.get(`http://localhost:3001/Plantas/${id}`)
+    axios.get(`https://prueba3-production.up.railway.app/Plantas/${id}`)
       .then((response) => {
         setPlant(response.data);
       })
@@ -24,7 +24,7 @@ function Plant() {
 
   const handleDelete = () => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta planta?")) {
-      axios.delete(`http://localhost:3001/borrarPlanta/${id}`)
+      axios.delete(`https://prueba3-production.up.railway.app/borrarPlanta/${id}`)
         .then(() => {
           alert('Planta eliminada con éxito');
           navigate('/Home'); 

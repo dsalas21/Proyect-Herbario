@@ -8,7 +8,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    axios.get("http://localhost:3001/Plantas")
+    axios.get("https://prueba3-production.up.railway.app/Plantas")
       .then((response) => {
         setPlantas(response.data);
       })

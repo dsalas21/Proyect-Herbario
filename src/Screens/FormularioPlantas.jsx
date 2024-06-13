@@ -23,11 +23,11 @@ const FormularioPlantas = () => {
   const [error, setError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const URL = 'http://localhost:3001/Recolectores'; 
+  const URL = 'https://prueba3-production.up.railway.app/Recolectores'; 
 
 //Registrar planta
   const add = () => {
-    axios.post("http://localhost:3001/regP", {
+    axios.post("https://prueba3-production.up.railway.app/regP", {
       scientific_name: scientific_name,
       common_name: common_name,
       family:family,
